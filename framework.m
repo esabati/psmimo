@@ -1,4 +1,4 @@
-clear all;
+clear;
 close all;
 
 N = 16; % number of antennas at the BS
