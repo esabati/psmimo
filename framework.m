@@ -34,7 +34,8 @@ xi_lin = 10^((xi - 30)/10);
 %% signals %%
 s0 = randn(N,1); % dedicated radar signal
 s = randn(K,1); % data signals
-v = zeros(N,K); % matrix containing the beamforming vectors for all users
+s = s/norm(s);
+v = ones(N,K); % matrix containing the beamforming vectors for all users
 x = v*s + s0; % transmited signal
 
 V0 = eye(N); % dedicated radar signal autocorrelation matrix
