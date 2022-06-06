@@ -90,7 +90,3 @@ plot(phi,zeros(1,K),'og','MarkerSize',10,'LineWidth',2);
 hold off;
 axis([-90 90 0 1/4]);
 
-
-        
-
-
