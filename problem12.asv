@@ -14,11 +14,9 @@ cvx_begin quiet
     R1_aux = log(conj(h(:,1))'*V0*h(:,1) + conj(h(:,1))'*V1*h(:,1) + conj(h(:,1))'*V2*h(:,1) + sigma2(1))/log(2);
     R2_aux = log(conj(h(:,2))'*V0*h(:,2) + conj(h(:,2))'*V1*h(:,2) + conj(h(:,2))'*V2*h(:,2) + sigma2(2))/log(2);
     
-    R1 = R1_aux - (a1 + ((log(exp(1))/log(2))/2^a1)*(conj(h(:,1))'*(V0 - V0_old)*h(:,1) + conj(h(:,1))'*(V2 - V2_old)*h(:,1)));
-    R2 = R2_aux - (a2 + ((log(exp(1))/log(2))/2^a2)*(conj(h(:,2))'*(V0 - V0_old)*h(:,2) + conj(h(:,2))'*(V1 - V1_old)*h(:,2)));
+    R1 = R1_aux - (a1 + (log(exp(1))/log(2))
     
     subject to
-        (lambda/2)*(t^2) + (1/(2*lambda))*(u^2) <= R1 + R2
         u >= (1/rho)*(trace(V0) + trace(V1) + trace(V2)) + Pc % (7a)
         conj(h(:,1))'*V1*h(:,1) >= tau(1)*(sigma2(1) + conj(h(:,1))'*V0*h(:,1) + conj(h(:,1))'*V2*h(:,1)) % (7c) k = 1
         conj(h(:,2))'*V2*h(:,2) >= tau(2)*(sigma2(2) + conj(h(:,2))'*V0*h(:,2) + conj(h(:,2))'*V1*h(:,2)) % (7c) k = 2
