@@ -27,7 +27,7 @@ Pmax_lin = 10^((Pmax - 30)/10);
 Pc_lin = 10^((Pc - 30)/10);
 
 sigma2_lin = 10.^((sigma2 - 30)/10);
-tau_lin = 0;
+tau_lin = 10.^(tau/10);
 gamma_lin = 10.^((gamma - 30)/10);
 xi_lin = 10^((xi - 30)/10);
 
@@ -42,7 +42,7 @@ V0 = eye(N); % dedicated radar signal autocorrelation matrix
 
 %% channel %%
 h = zeros(N,K); % matrix containing the channels from the BS to all users
-h(1,:) = ones(1,K); % LOS channel
+% h(1,:) = ones(1,K); % LOS channel
 
 %% steering vector %% 
 Ntheta = 181; % number of sensing directions
@@ -55,14 +55,11 @@ for i = 1:Ntheta
     end
 end
 
-%% beampattern gain %%
-p = zeros(1,Ntheta); % beampattern gains
-for i = 1:Ntheta
-    aux = 0;
-    for j = 1:K
-        aux = aux + v(:,j)*conj(v(:,j))';
+a_sens = zeros(N,M); % sensing steering vector
+for m = 1:M
+    for i = 0:N - 1
+        a_sens(i + 1,m) = exp(1i*2*pi*(d/lambda)*j*sin(sensing_directions(m)));
     end
-    p(i) = conj(a(:,i))'*aux*a(:,i);
 end
 
 %% SNR %%
@@ -79,6 +76,16 @@ end
 
 R = sum(log2(1 + SNR)); % system communication throughput
 
+%% test %%
+[V0,V1,V2] = algorithm1(V0,a_sens,h,tau_lin,gamma_lin,rho,Pc_lin,sigma2_lin,Pmax_lin,N,K);
+
+%% beampattern gain %%
+p = zeros(1,Ntheta); % beampattern gains
+for i = 1:Ntheta
+    aux = V1 + V2 + V0;
+    p(i) = conj(a(:,i))'*aux*a(:,i);
+end
+
 %% figures %%
 figure();
 plot(theta,abs(p));
@@ -88,5 +95,5 @@ plot([theta(1) theta(end)],[gamma_lin(1) gamma_lin(end)],':k');
 plot(sensing_directions,zeros(1,M),'xr','MarkerSize',10,'LineWidth',2);
 plot(phi,zeros(1,K),'og','MarkerSize',10,'LineWidth',2);
 hold off;
-axis([-90 90 0 1/4]);
+xlim([-90 90]);
 
