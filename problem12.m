@@ -3,7 +3,7 @@ a1 = log(conj(h(:,1))'*V0_old*h(:,1) + conj(h(:,1))'*V2_old*h(:,1) + sigma2(1))/
 a2 = log(conj(h(:,2))'*V0_old*h(:,2) + conj(h(:,2))'*V1_old*h(:,2) + sigma2(2))/log(2); % auxiliary variable for R2
 
 disp('in');
-cvx_begin quiet
+cvx_begin
     variable t
     variable u
     variable V0(N,N) semidefinite
