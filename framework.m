@@ -77,7 +77,7 @@ end
 R = sum(log2(1 + SNR)); % system communication throughput
 
 %% test %%
-[V0,V1,V2] = algorithm1(V0,a_sens,h,tau_lin,gamma_lin,rho,Pc_lin,sigma2_lin,Pmax_lin,N,K);
+[V0,V1,V2] = algorithm1(V0,a_sens,h,tau_lin,gamma_lin,rho,Pc_lin,sigma2_lin,Pmax_lin,N,K,M);
 
 %% beampattern gain %%
 p = zeros(1,Ntheta); % beampattern gains
