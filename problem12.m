@@ -10,6 +10,8 @@ cvx_begin quiet
     variable t
     variable u
     maximize(t)
+    R1 = log(conj(h(:,1))'*V0*h(:,1) + conj(h(:,1))'*V1*h(:,1) + conj(h(:,1))'*V2*h(:,1) + sigma2(1))/log(2);
+    R2 = log(conj(h(:,2))'*V0*h(:,2) + conj(h(:,2))'*V1*h(:,2) + conj(h(:,2))'*V2*h(:,2) + sigma2(2))/log(2);
     subject to
         u >= (1/rho)*(trace(V0) + trace(V1) + trace(V2)) + Pc % (7a)
         conj(h(:,1))'*V1*h(:,1) >= tau(1)*(sigma2(1) + conj(h(:,1))'*V0*h(:,1) + conj(h(:,1))'*V2*h(:,1)) % (7c) k = 1
