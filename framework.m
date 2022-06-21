@@ -84,4 +84,4 @@ plot(10*log10(gamma),EE_comm*ones(1,6),'-ob');
 xlabel('\Gamma (dBm)');
 ylabel('\eta (bps/J/Hz)');
 legend('Proposed design','Communication only design');
-ylim([0 12]);   
+% ylim([0 12]);
