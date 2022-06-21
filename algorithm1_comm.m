@@ -1,4 +1,4 @@
-function [V,EE] = algorithm1(K,N,M,a,h,tau,sigma2,gamma,rho,xi,Pc,Pmax,epsilon)
+function [V,EE] = algorithm1_comm(K,N,M,a,h,tau,sigma2,gamma,rho,xi,Pc,Pmax,epsilon)
 V_old = zeros(N,N,K + 1);
 for k = 1:1+K
     v_rand = ones(N,1).*exp(1j*2*pi*rand(N,1))/sqrt(N)*sqrt(Pmax/(1+K));
@@ -12,7 +12,7 @@ t_old = 0;
 
 while(1)
     l = l + 1;
-    [V,t,u] = problem12(K,N,M,a,h,tau,sigma2,gamma,rho,Pc,Pmax,lambda,V_old);
+    [V,t,u] = problem12_comm(K,N,M,a,h,tau,sigma2,gamma,rho,Pc,Pmax,lambda,V_old);
     V_old = V;
     
     lambda = u/t;

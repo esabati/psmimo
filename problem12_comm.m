@@ -1,4 +1,4 @@
-function [V,t,u] = problem12(K,N,M,a,h,tau,sigma2,gamma,rho,Pc,Pmax,lambda,V_old)
+function [V,t,u] = problem12_comm(K,N,M,a,h,tau,sigma2,gamma,rho,Pc,Pmax,lambda,V_old)
 cvx_begin sdp quiet
     variable t
     variable u
@@ -32,9 +32,5 @@ cvx_begin sdp quiet
         end
         
         trace(sumV) <= Pmax % (7d)
-        
-        for m = 1:M
-            quad_form(a(:,:,m),sumV) >= gamma % (7e)
-        end
 cvx_end
 end

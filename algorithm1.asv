@@ -1,4 +1,4 @@
-function [V,EE] = algorithm1(K,N,M,a,h,tau,sigma2,gamma,rho,xi,Pc,Pmax,epsilon)
+function [V,EE] = algorithm1(K,N,M,a,h,tau,sigma2,gamma,rho,Pc,Pmax,epsilon)
 V_old = zeros(N,N,K + 1);
 for k = 1:1+K
     v_rand = ones(N,1).*exp(1j*2*pi*rand(N,1))/sqrt(N)*sqrt(Pmax/(1+K));
@@ -27,6 +27,4 @@ for k = 1:K + 1
     sumV = sumV + V(:,:,k);
 end
 
-SE = (trace(sumV)/rho + Pc)*t;
-EE = SE/(trace(sumV)/rho + Pc + SE*xi);
 end
