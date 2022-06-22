@@ -48,11 +48,11 @@ end
 [V_radar] = algorithm_radar(N,M,a_sens,Pmax);
 
 %% algorithm call %%
-% gamma = 0.001*10.^([10 12 14 16 18 20]/10);
-EE_opt = zeros(1,length(gamma));
+gamma = 0.001*10.^([10 12 14 16 18 20]/10);
+EE_opt = zeros(1,6);
 
-for i = 1:length(gamma)
-    disp(i)
+for i = 1:6
+    display(i)
     [V,EE] = algorithm1(K,N,M,a_sens,h,tau,sigma2,gamma(i),rho,xi,Pc,Pmax,eps);
     EE_opt(i) = EE;
 end
