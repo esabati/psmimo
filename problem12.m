@@ -19,16 +19,16 @@ cvx_begin sdp quiet
         
         clear R_underline
         for k = 1:K
-            a_k = log(quad_form(h(:,:,k),sumV_old - V_old(:,:,k)) + sigma2)/log(2); 
-            b_k = 1/(quad_form(h(:,:,k),sumV_old - V_old(:,:,k)) + sigma2)/log(2); 
-            R_underline(1,k) = log(quad_form(h(:,:,k),sumV) + sigma2)/log(2) - (a_k + b_k*quad_form(h(:,:,k),(sumV - V(:,:,k)) - (sumV_old - V_old(:,:,k))));
+            a_k = log(quad_form(h(:,:,k),sumV_old - V_old(:,:,k + 1)) + sigma2)/log(2); 
+            b_k = 1/(quad_form(h(:,:,k),sumV_old - V_old(:,:,k + 1)) + sigma2)/log(2); 
+            R_underline(1,k) = log(quad_form(h(:,:,k),sumV) + sigma2)/log(2) - (a_k + b_k*quad_form(h(:,:,k),(sumV - V(:,:,k + 1)) - (sumV_old - V_old(:,:,k + 1))));
         end
         lambda/2*t^2 + 1/(2*lambda)*u^2 <= sum(R_underline);
         
         u >= trace(sumV)/rho + Pc
         
         for k = 1:K
-            quad_form(h(:,:,k),V(:,:,k)) >= tau*(quad_form(h(:,:,k),sumV - V(:,:,k)) + sigma2);
+            quad_form(h(:,:,k),V(:,:,k + 1)) >= tau*(quad_form(h(:,:,k),sumV - V(:,:,k + 1)) + sigma2);
         end
         
         trace(sumV) <= Pmax % (7d)
