@@ -20,7 +20,7 @@ cvx_begin sdp quiet
             SNR(k) >= tau*(quad_form(h(:,:,k),sumV - V_user(:,:,k)) + sigma2)
         end
         V >= 0
-        trace(sumV) == Pmax
+        trace(V) <= Pmax
 cvx_end
 
 R = 0;
